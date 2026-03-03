@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenClaw - 你的 AI 助手框架</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --bg: #ffffff;
+            --bg-alt: #f9fafb;
+            --border: #e5e7eb;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text);
+            line-height: 1.6;
+            background: var(--bg);
+        }
+        
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        /* Header */
+        header {
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(8px);
+            z-index: 100;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        /* Hero */
+        .hero {
+            padding: 100px 0 80px;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -0.02em;
+        }
+        
+        .hero h1 span {
+            color: var(--primary);
+        }
+        
+        .hero p {
+            font-size: 20px;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+        }
+        
+        .btn {
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+        
+        .btn-secondary {
+            background: var(--bg-alt);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--border);
+        }
+        
+        /* Features */
+        .features {
+            padding: 80px 0;
+            background: var(--bg-alt);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        
+        .section-title p {
+            color: var(--text-light);
+            font-size: 18px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+        }
+        
+        .feature-card {
+            background: var(--bg);
+            padding: 32px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+        }
+        
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        
+        .feature-card p {
+            color: var(--text-light);
+            font-size: 15px;
+        }
+        
+        /* Code Demo */
+        .code-section {
+            padding: 80px 0;
+        }
+        
+        .code-block {
+            background: #1e1e1e;
+            border-radius: 12px;
+            padding: 32px;
+            overflow-x: auto;
+            margin: 0 auto;
+            max-width: 700px;
+        }
+        
+        .code-block pre {
+            margin: 0;
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+        
+        .code-block code {
+            color: #d4d4d4;
+        }
+        
+        .code-block .keyword { color: #569cd6; }
+        .code-block .string { color: #ce9178; }
+        .code-block .function { color: #dcdcaa; }
+        .code-block .comment { color: #6a9955; }
+        
+        /* Footer */
+        footer {
+            padding: 40px 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-light);
+        }
+        
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 17px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">
+                    <div class="logo-icon">🦐</div>
+                    OpenClaw
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#features">功能</a></li>
+                    <li><a href="#code">代码</a></li>
+                    <li><a href="https://docs.openclaw.ai" target="_blank">文档</a></li>
+                    <li><a href="https://github.com/openclaw" target="_blank">GitHub</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="container">
+            <h1>让 AI 成为你的<br><span>超级助手</span></h1>
+            <p>OpenClaw 是一个强大的 AI 代理框架，帮助你构建、部署和管理智能助手。连接各种工具和服务，让 AI 真正为你工作。</p>
+            <div class="hero-buttons">
+                <a href="https://docs.openclaw.ai" class="btn btn-primary">开始使用 →</a>
+                <a href="https://github.com/openclaw" class="btn btn-secondary">查看 GitHub</a>
+            </div>
+        </div>
+    </section>
+    
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>为什么选择 OpenClaw？</h2>
+                <p>强大的功能，简单的体验</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔌</div>
+                    <h3>多平台集成</h3>
+                    <p>支持飞书、Discord、Telegram、Slack 等多种平台，一个框架连接所有渠道。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧩</div>
+                    <h3>模块化技能</h3>
+                    <p>灵活的技能系统，按需加载功能模块，扩展性强，易于定制。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🖥️</div>
+                    <h3>浏览器控制</h3>
+                    <p>强大的浏览器自动化能力，自动执行网页操作，释放双手。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💾</div>
+                    <h3>持久记忆</h3>
+                    <p>智能上下文管理，记住重要信息，提供连贯的对话体验。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>安全可靠</h3>
+                    <p>完善的权限控制，敏感操作确认，保障数据和隐私安全。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3>易于部署</h3>
+                    <p>支持多种部署方式，本地运行、云端部署，满足不同场景需求。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="code-section" id="code">
+        <div class="container">
+            <div class="section-title">
+                <h2>简单易用</h2>
+                <p>几行代码即可启动你的 AI 助手</p>
+            </div>
+            <div class="code-block">
+<pre><code><span class="keyword">import</span> { OpenClaw } <span class="keyword">from</span> <span class="string">'openclaw'</span>;
+
+<span class="keyword">const</span> bot = <span class="keyword">new</span> <span class="function">OpenClaw</span>({
+  <span class="keyword">model</span>: <span class="string">'claude-sonnet'</span>,
+  <span class="keyword">platforms</span>: [<span class="string">'discord'</span>, <span class="string">'telegram'</span>]
+});
+
+bot.<span class="function">onMessage</span>(<span class="string">'mention'</span>, <span class="keyword">async</span> (ctx) => {
+  <span class="keyword">const</span> response = <span class="keyword">await</span> ctx.<span class="function">think</span>(ctx.message);
+  ctx.<span class="function">reply</span>(response);
+});
+
+bot.<span class="function">start</span>();
+<span class="comment">// 🎉 你的 AI 助手已启动！</span></code></pre>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <p>🚀 OpenClaw — 让 AI 更强大</p>
+            <p style="margin-top: 12px;">
+                <a href="https://github.com/openclaw" target="_blank">GitHub</a> · 
+                <a href="https://docs.openclaw.ai" target="_blank">文档</a> · 
+                <a href="https://discord.gg/openclaw" target="_blank">Discord</a>
+            </p>
+            <p style="margin-top: 20px; font-size: 14px; opacity: 0.7;">
+                © 2024 OpenClaw. Open Source under MIT License.
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
